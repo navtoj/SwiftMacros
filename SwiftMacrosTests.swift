@@ -9,38 +9,22 @@ import XCTest
 	import SwiftMacrosPlugin
 
 	let testMacros: [String: Macro.Type] = [
-		"stringify": StringifyMacro.self,
+		"URL": URLMacro.self,
 	]
 #endif
 
 // MARK: - SwiftMacrosTests
 
 final class SwiftMacrosTests: XCTestCase {
-	func testMacro() throws {
+	func testURLMacroWithStringLiteral() throws {
 		#if canImport(SwiftMacrosPlugin)
 			assertMacroExpansion(
 				"""
-				#stringify(a + b)
+				#URL("https://www.example.com")
 				""",
 				expandedSource: """
-				(a + b, "a + b")
+				Foundation.URL(string: "https://www.example.com")!
 				""",
-				macros: testMacros
-			)
-		#else
-			throw XCTSkip("macros are only supported when running tests for the host platform")
-		#endif
-	}
-
-	func testMacroWithStringLiteral() throws {
-		#if canImport(SwiftMacrosPlugin)
-			assertMacroExpansion(
-				#"""
-				#stringify("Hello, \(name)")
-				"""#,
-				expandedSource: #"""
-				("Hello, \(name)", #""Hello, \(name)""#)
-				"""#,
 				macros: testMacros
 			)
 		#else
