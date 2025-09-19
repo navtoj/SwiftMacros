@@ -3,6 +3,8 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
+// MARK: - StringifyMacro
+
 /// Implementation of the `stringify` macro, which takes an expression
 /// of any type and produces a tuple containing the value of that expression
 /// and the source code that produced the value. For example
@@ -13,21 +15,23 @@ import SwiftSyntaxMacros
 ///
 ///     (x + y, "x + y")
 public struct StringifyMacro: ExpressionMacro {
-    public static func expansion(
-        of node: some FreestandingMacroExpansionSyntax,
-        in context: some MacroExpansionContext
-    ) -> ExprSyntax {
-        guard let argument = node.arguments.first?.expression else {
-            fatalError("compiler bug: the macro does not have any arguments")
-        }
+	public static func expansion(
+		of node: some FreestandingMacroExpansionSyntax,
+		in _: some MacroExpansionContext
+	) -> ExprSyntax {
+		guard let argument = node.arguments.first?.expression else {
+			fatalError("compiler bug: the macro does not have any arguments")
+		}
 
-        return "(\(argument), \(literal: argument.description))"
-    }
+		return "(\(argument), \(literal: argument.description))"
+	}
 }
+
+// MARK: - SwiftMacrosPlugin
 
 @main
 struct SwiftMacrosPlugin: CompilerPlugin {
-    let providingMacros: [Macro.Type] = [
-        StringifyMacro.self,
-    ]
+	let providingMacros: [Macro.Type] = [
+		StringifyMacro.self,
+	]
 }

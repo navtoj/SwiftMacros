@@ -1,0 +1,13 @@
+included:
+    - Package.swift
+    - Sources
+    - Tests
+
+trailing_comma:
+    mandatory_comma: true
+
+switch_case_alignment:
+    indented_cases: true
+
+opening_brace:
+    ignore_multiline_statement_conditions: true
