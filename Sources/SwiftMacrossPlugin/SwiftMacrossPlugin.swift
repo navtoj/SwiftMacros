@@ -2,7 +2,7 @@ import SwiftCompilerPlugin
 import SwiftSyntaxMacros
 
 @main
-struct SwiftMacrosPlugin: CompilerPlugin {
+struct SwiftMacrossPlugin: CompilerPlugin {
 	let providingMacros: [Macro.Type] = [
 		URLMacro.self,
 	]

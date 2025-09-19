@@ -5,15 +5,15 @@ import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
-	name: "SwiftMacros",
+	name: "SwiftMacross",
 	platforms: [
 		.macOS(.v15),
 	],
 	products: [
 		// Products define the executables and libraries a package produces, making them visible to other packages.
 		.library(
-			name: "SwiftMacros",
-			targets: ["SwiftMacros"]
+			name: "SwiftMacross",
+			targets: ["SwiftMacross"]
 		),
 	],
 	dependencies: [
@@ -27,31 +27,26 @@ let package = Package(
 		// Targets can depend on other targets in this package and products from dependencies.
 		// Macro implementation that performs the source transformation of a macro.
 		.macro(
-			name: "SwiftMacrosPlugin",
+			name: "SwiftMacrossPlugin",
 			dependencies: [
 				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
 				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
 			],
-			path: "Sources"
 		),
 
 		// Library that exposes a macro as part of its API, which is used in client programs.
 		.target(
-			name: "SwiftMacros",
-			dependencies: ["SwiftMacrosPlugin"],
-			path: ".",
-			sources: ["SwiftMacros.swift"]
+			name: "SwiftMacross",
+			dependencies: ["SwiftMacrossPlugin"],
 		),
 
 		// A test target used to develop the macro implementation.
 		.testTarget(
-			name: "SwiftMacrosTests",
+			name: "SwiftMacrossTests",
 			dependencies: [
-				"SwiftMacrosPlugin",
+				"SwiftMacrossPlugin",
 				.product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
 			],
-			path: ".",
-			sources: ["SwiftMacrosTests.swift"]
 		),
 	]
 )

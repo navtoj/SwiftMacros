@@ -5,19 +5,19 @@ import SwiftSyntaxMacrosTestSupport
 import XCTest
 
 // Macro implementations build for the host, so the corresponding module is not available when cross-compiling. Cross-compiled tests may still make use of the macro itself in end-to-end tests.
-#if canImport(SwiftMacrosPlugin)
-	import SwiftMacrosPlugin
+#if canImport(SwiftMacrossPlugin)
+	import SwiftMacrossPlugin
 
 	let testMacros: [String: Macro.Type] = [
 		"URL": URLMacro.self,
 	]
 #endif
 
-// MARK: - SwiftMacrosTests
+// MARK: - SwiftMacrossTests
 
-final class SwiftMacrosTests: XCTestCase {
+final class SwiftMacrossTests: XCTestCase {
 	func testURLMacroWithStringLiteral() throws {
-		#if canImport(SwiftMacrosPlugin)
+		#if canImport(SwiftMacrossPlugin)
 			assertMacroExpansion(
 				"""
 				#URL("https://www.example.com")
